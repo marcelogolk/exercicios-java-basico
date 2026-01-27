@@ -203,7 +203,7 @@ public class Main {
     }
 }
 ```
-# 4 — Diferença de Idade Entre Duas Pessoas 
+# 4 — Diferença de Idade
 ```java
 import java.util.Scanner;
 
@@ -218,6 +218,7 @@ import java.util.Scanner;
  * version 1.0
  * since 2025-01-27
  */
+public class Main {
 public class Main {
 
     /**
@@ -261,3 +262,27 @@ public class Main {
         // Pergunta a idade da segunda pessoa
         System.out.print("Qual a idade da segunda pessoa? ");
         // Lê um número inteiro digitado pelo usuário
+        idadeSegundo = entradaDados.nextInt();
+
+        // Compara as idades para calcular a diferença positiva entre elas
+        if (idadePrimeiro > idadeSegundo) {
+            diferencaIdades = idadePrimeiro - idadeSegundo;
+        } else if (idadeSegundo > idadePrimeiro) {
+            diferencaIdades = idadeSegundo - idadePrimeiro;
+        } else if (idadePrimeiro == idadeSegundo) {
+            diferencaIdades = 0;
+        }
+
+        // Exibe a diferença de idade entre as duas pessoas
+        System.out.printf(
+                "A diferença de idade entre %s e %s é de %d anos.%n",
+                primeiroNome,
+                segundoNome,
+                diferencaIdades
+        );
+
+        // Fecha o Scanner para liberar o recurso de entrada
+        entradaDados.close();
+    }
+}
+```
