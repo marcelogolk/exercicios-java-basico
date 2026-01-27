@@ -44,7 +44,7 @@ public class Main {
         String nome;
 
         // Declara uma variável do tipo int para armazenar o ano de nascimento
-        int anoNascimetno;
+        int anoNascimento;
 
         // Obtém o ano atual do sistema usando a API de datas do Java
         int anoAtual = LocalDate.now().getYear();
@@ -62,10 +62,10 @@ public class Main {
         System.out.print("Você nasceu em que ano(XXXX)? ");
 
         // Lê um número inteiro digitado pelo usuário e guarda em anoNascimetno
-        anoNascimetno = entradaDados.nextInt();
+        anoNascimento = entradaDados.nextInt();
 
         // Calcula a idade subtraindo o ano de nascimento do ano atual
-        idade = anoAtual - anoNascimetno;
+        idade = anoAtual - anoNascimento;
 
         // Imprime a mensagem formatada com o nome e a idade calculada
         System.out.printf("Olá %s, você tem, ou faz %d anos este ano.%n", nome, idade);
