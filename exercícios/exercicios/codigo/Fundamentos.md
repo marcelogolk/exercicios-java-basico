@@ -202,7 +202,7 @@ public class Main {
     }
 }
 ```
-# 4 — Diferença de Idade Entre Duas Pessoas  
+# 4 — Diferença de Idade Entre Duas Pessoas 
 ```java
 import java.util.Scanner;
 
