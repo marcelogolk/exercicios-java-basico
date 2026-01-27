@@ -5,7 +5,7 @@ Data: **27/01/2025**
 1. **Cálculo de Idade**  
 2. **Cálculo da Área de um Quadrado**
 3. **Cálculo da Área de um Triângulo**
-
+4. **Diferença de Idade Entre Duas Pessoas**
 Cada código está documentado com Javadoc e comentários explicativos.
 
 ---
@@ -203,3 +203,62 @@ public class Main {
         entradaDados.close();
     }
 }
+```
+# 4 — Diferença de Idade Entre Duas Pessoas  
+```java
+import java.util.Scanner;
+
+/**
+ * Escreva um código que receba o nome e a idade de 2 pessoas
+ * e imprima a diferença de idade entre elas.
+ *
+ * <p>Este programa utiliza a classe {@link Scanner} para leitura de dados
+ * via teclado.</p>
+ *
+ * author Marcelo Guimarães Carvalho
+ * version 1.0
+ * since 2025-01-27
+ */
+public class Main {
+
+    /**
+     * Método principal da aplicação.
+     *
+     * @param args argumentos de linha de comando (não utilizados neste programa)
+     */
+    public static void main(String[] args) {
+
+        // Cria um objeto Scanner para ler dados digitados pelo usuário no console
+        Scanner entradaDados = new Scanner(System.in);
+
+        // Declara variáveis do tipo String para armazenar os nomes das duas pessoas
+        String primeiroNome;
+        String segundoNome;
+
+        // Declara variáveis do tipo int para armazenar as idades das duas pessoas
+        int idadePrimeiro;
+        int idadeSegundo;
+
+        // Variável para armazenar a diferença de idade entre as duas pessoas
+        int diferencaIdades = 0;
+
+        // Pergunta o nome da primeira pessoa
+        System.out.print("Qual o nome da primeira pessoa? ");
+        // Lê a linha inteira digitada pelo usuário (pode conter espaços)
+        primeiroNome = entradaDados.nextLine();
+
+        // Pergunta a idade da primeira pessoa
+        System.out.print("Qual a idade da primeira pessoa? ");
+        // Lê um número inteiro digitado pelo usuário
+        idadePrimeiro = entradaDados.nextInt();
+        // Consome a quebra de linha pendente após o nextInt()
+        entradaDados.nextLine();
+
+        // Pergunta o nome da segunda pessoa
+        System.out.print("Qual o nome da segunda pessoa? ");
+        // Lê a linha inteira digitada pelo usuário
+        segundoNome = entradaDados.nextLine();
+
+        // Pergunta a idade da segunda pessoa
+        System.out.print("Qual a idade da segunda pessoa? ");
+        // Lê um número inteiro digitado pelo usuário
