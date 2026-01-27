@@ -2,16 +2,15 @@
 Autor: **Marcelo Guimarães Carvalho**  
 Data: **27/01/2025**
 
-Este repositório contém dois programas simples em Java:
-
 1. **Cálculo de Idade**  
 2. **Cálculo da Área de um Quadrado**
+3. **Cálculo da Área de um Triângulo**
 
 Cada código está documentado com Javadoc e comentários explicativos.
 
 ---
 
-# Cálculo de Idade
+# 1 — Cálculo de Idade
 
 ```java
 import java.time.LocalDate;
@@ -76,8 +75,7 @@ public class Main {
     }
 }
 ```
-# Cálculo da Área de um Quadrado   
-**Autor:** Marcelo Guimarães Carvalho  
+# 2 — Cálculo da Área de um Quadrado   
 
 ```java
 import java.text.DecimalFormat;
@@ -139,4 +137,69 @@ public class Main {
         entradaDados.close();
     }
 }
+```
+# 3 — Cálculo da Área de um Triângulo  
 
+```java
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+/**
+ * Escreva um código que receba a base e a altura de um triângulo,
+ * calcule sua área e exiba na tela.
+ *
+ * Fórmula da área do triângulo:
+ * Área = (base × altura) / 2
+ *
+ * <p>Este programa utiliza a classe {@link Scanner} para leitura de dados
+ * via teclado e a classe {@link DecimalFormat} para formatar a saída numérica
+ * com duas casas decimais no padrão brasileiro (vírgula como separador decimal).</p>
+ *
+ * @author Marcelo Guimarães Carvalho
+ * @version 1.0
+ * @since 2025-01-27
+ */
+public class Main {
+
+    /**
+     * Método principal da aplicação.
+     *
+     * @param args argumentos de linha de comando (não utilizados neste programa)
+     */
+    public static void main(String[] args) {
+
+        // Cria um objeto Scanner para ler dados digitados pelo usuário
+        Scanner entradaDados = new Scanner(System.in);
+
+        // Cria um formatador numérico para exibir valores com duas casas decimais
+        DecimalFormat numeroDecimalFormatado = new DecimalFormat("#,##0.00");
+
+        // Variáveis para armazenar a base e a altura do triângulo
+        double base, altura;
+
+        // Variável para armazenar a área calculada
+        double area;
+
+        // Pergunta ao usuário o valor da base
+        System.out.print("Qual o tamanho da base do triângulo? ");
+        base = entradaDados.nextDouble();
+
+        // Pergunta ao usuário o valor da altura
+        System.out.print("Qual o tamanho da altura do triângulo? ");
+        altura = entradaDados.nextDouble();
+
+        // Calcula a área do triângulo usando a fórmula: (base * altura) / 2
+        area = (base * altura) / 2;
+
+        // Exibe a mensagem formatada com base, altura e área
+        System.out.printf(
+                "Olá! O triângulo de base %s e altura %s possui área de %s.%n",
+                numeroDecimalFormatado.format(base),
+                numeroDecimalFormatado.format(altura),
+                numeroDecimalFormatado.format(area)
+        );
+
+        // Fecha o Scanner para liberar o recurso de entrada
+        entradaDados.close();
+    }
+}
