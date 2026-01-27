@@ -110,7 +110,7 @@ public class Main {
 
         // Cria um objeto DecimalFormat para formatar números com duas casas decimais
         // e separador decimal no padrão brasileiro (ex.: 1,50)
-        DecimalFormat df = new DecimalFormat("#,##0.00");
+        DecimalFormat numeroDecimalFormatado = new DecimalFormat("#,##0.00");
 
         // Variável para armazenar o lado do quadrado
         double lado = 0;
@@ -131,8 +131,8 @@ public class Main {
         // com duas casas decimais e vírgula como separador decimal
         System.out.printf(
                 "Olá! o quadrado de lado %s possui área de %s.%n",
-                df.format(lado),
-                df.format(area)
+                numeroDecimalFormatado.format(lado),
+                numeroDecimalFormatado.format(area)
         );
 
         // Fecha o Scanner para liberar o recurso de entrada
