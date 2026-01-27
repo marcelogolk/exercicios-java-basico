@@ -1,6 +1,4 @@
 # 📘 Exercícios em Java  
-Autor: **Marcelo Guimarães Carvalho**  
-Data: **27/01/2025**
 
 1. **Cálculo de Idade**  
 2. **Cálculo da Área de um Quadrado**
