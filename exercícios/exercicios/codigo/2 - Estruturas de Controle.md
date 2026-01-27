@@ -1,6 +1,6 @@
 # 📘 Exercícios  
 
-1. **Cálculo de Idade**
+1. **Tabuada**
 2. **Cálculo da Área de um Quadrado**
 
 Cada código está documentado com Javadoc e comentários explicativos.
