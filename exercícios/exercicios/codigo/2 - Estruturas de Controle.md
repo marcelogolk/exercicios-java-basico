@@ -158,7 +158,116 @@ public class Main {
 # 3 — Par ou Impar
 
 ```java
+import java.text.DecimalFormat;
+import java.util.Scanner;
 
+/**
+ * Escreva um código onde o usuário entra com um primeiro número, um segundo
+ * número maior que o primeiro e escolhe entre a opção PAR ou ÍMPAR.
+ * O programa deve exibir todos os números pares ou ímpares (de acordo com
+ * a escolha do usuário) dentro do intervalo informado, incluindo os limites,
+ * e imprimir a sequência em ordem decrescente.
+ *
+ * <p>Este programa utiliza a classe {@link Scanner} para leitura de dados
+ * via teclado e a classe {@link DecimalFormat} para formatar números com
+ * zeros à esquerda.</p>
+ *
+ * author Marcelo Guimarães Carvalho
+ * version 1.0
+ * since 2025-01-28
+ */
+public class Main {
+
+    /**
+     * Método principal da aplicação.
+     *
+     * @param args argumentos de linha de comando (não utilizados neste programa)
+     */
+    public static void main(String[] args) {
+
+        // Cria um objeto Scanner para ler dados digitados pelo usuário
+        Scanner entradaDados = new Scanner(System.in);
+
+        // Variáveis para armazenar os números do intervalo
+        int numeroInicial;
+        int numeroFinal;
+
+        // Contador para controlar quebra de linha a cada 15 números impressos
+        int contador = 0;
+
+        // Variável para armazenar a escolha do usuário: "par" ou "impar"
+        String parOuImpar;
+
+        // Formata números com três dígitos, preenchendo com zeros à esquerda
+        DecimalFormat numeroDecimalFormatado = new DecimalFormat("000");
+
+        // Mensagem inicial
+        System.out.println("Programa para imprimir uma sequência de números PAR ou ÍMPAR");
+
+        // Solicita o número inicial
+        System.out.print("Digite o número inicial da sequência: ");
+        numeroInicial = entradaDados.nextInt();
+        entradaDados.nextLine(); // limpa buffer
+
+        // Solicita o número final
+        System.out.print("Digite o número final da sequência (deve ser maior que o inicial): ");
+        numeroFinal = entradaDados.nextInt();
+        entradaDados.nextLine(); // limpa buffer
+
+        // Solicita a escolha entre par ou ímpar
+        System.out.print("Qual sequência deseja? Par ou Ímpar: ");
+        parOuImpar = entradaDados.nextLine();
+
+        // Verifica se o usuário escolheu PAR
+        if (parOuImpar.equalsIgnoreCase("par")) {
+
+            System.out.println("Você escolheu PAR");
+
+            // Loop decrescente do número final até o inicial
+            for (int i = numeroFinal; i >= numeroInicial; i--) {
+
+                // Verifica se o número é par
+                if (i % 2 == 0) {
+                    System.out.printf("%s, ", numeroDecimalFormatado.format(i));
+                    contador++;
+                }
+
+                // Quebra a linha a cada 15 números impressos
+                if (contador == 15) {
+                    System.out.println();
+                    contador = 0;
+                }
+            }
+
+        // Verifica se o usuário escolheu ÍMPAR
+        } else if (parOuImpar.equalsIgnoreCase("impar")) {
+
+            System.out.println("Você escolheu ÍMPAR");
+
+            for (int i = numeroFinal; i >= numeroInicial; i--) {
+
+                // Verifica se o número é ímpar
+                if (i % 2 != 0) {
+                    System.out.printf("%s, ", numeroDecimalFormatado.format(i));
+                    contador++;
+                }
+
+                // Quebra a linha a cada 15 números impressos
+                if (contador == 15) {
+                    System.out.println();
+                    contador = 0;
+                }
+            }
+
+        // Caso o usuário digite algo diferente de PAR ou ÍMPAR
+        } else {
+            System.out.println("Entrada inválida. Digite apenas PAR ou ÍMPAR.");
+        }
+
+        // Fecha o Scanner
+        entradaDados.close();
+    }
+}
 ```
 # 4 — Divide = Zero
 
