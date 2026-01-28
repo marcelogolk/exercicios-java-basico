@@ -1,15 +1,24 @@
 # 📘 Exercícios
 
-1. **Cálculo de Idade**  
-2. **Cálculo da Área de um Quadrado**
-3. **Cálculo da Área de um Triângulo**
-4. **Diferença de Idade Entre Duas Pessoas**
+1. **Conta Bancaria**
+2. **Controla Carro**
+3. **Petshop**
 
 Cada código está documentado com Javadoc e comentários explicativos.
 
 ---
 
-# 1 — Cálculo de Idade
+# 1 — Conta Bancaria
+
+```java
+
+```
+# 1 — Controla Carro
+
+```java
+
+```
+# 1 — Petshop
 
 ```java
 
