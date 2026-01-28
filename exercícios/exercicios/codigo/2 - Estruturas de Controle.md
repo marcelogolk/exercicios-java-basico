@@ -1,14 +1,14 @@
 # 📘 Exercícios  
 
 1. **Tabuada**
-2. **cálculo do seu IMC**
+2. **Cálculo do seu IMC**
 3. **Par ou Impar**
 4. **Divide = Zero**
 
 Cada código está documentado com Javadoc e comentários explicativos.
 
 ---
-
+# 1 — Tabuada
 ```java
 import java.util.Scanner;
 /**
@@ -62,6 +62,11 @@ public class Main {
         entradaDados.close();
     }
 }
+```
+# 1 — Cálculo do seu IMC
+
+```java
+
 ```
 
 
