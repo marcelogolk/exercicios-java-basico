@@ -3,7 +3,7 @@
 1. **Tabuada**
 2. **Cálculo do seu IMC**
 3. **Par ou Impar**
-4. **Divide = Zero**
+4. **Verifica se é Mutiplo**
 
 Cada código está documentado com Javadoc e comentários explicativos.
 
@@ -269,9 +269,88 @@ public class Main {
     }
 }
 ```
-# 4 — Divide = Zero
+# 4 — Verifica se é Mutiplo
 
 ```java
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
+/**
+ * Escreva um código onde o usuário informa um número inicial e,
+ * posteriormente, irá informar outros N números. A execução do código
+ * continuará enquanto o número informado for múltiplo do número inicial
+ * (ou seja, resto da divisão igual a 0). Quando o número informado tiver
+ * resto diferente de 0, o programa deve ser encerrado.
+ *
+ * Números menores que o número inicial devem ser ignorados.
+ *
+ * <p>Este programa utiliza a classe {@link Scanner} para leitura de dados
+ * via teclado e a classe {@link DecimalFormat} para formatar números com
+ * zeros à esquerda.</p>
+ *
+ * author Marcelo Guimarães Carvalho
+ * version 1.0
+ * since 2025-01-28
+ */
+public class Main {
+
+    /**
+     * Método principal da aplicação.
+     *
+     * @param args argumentos de linha de comando (não utilizados neste programa)
+     */
+    public static void main(String[] args) {
+
+        // Cria um objeto Scanner para ler dados digitados pelo usuário
+        Scanner entradaDados = new Scanner(System.in);
+
+        // Variável que armazena o número inicial informado pelo usuário
+        int numeroInicial;
+
+        // Variável que armazena cada número digitado posteriormente
+        int numeroTeste;
+
+        // Variável de controle para manter o loop ativo
+        boolean saida = true;
+
+        // Mensagem inicial do programa
+        System.out.println("Programa para demonstrar se um número é múltiplo do valor inicial");
+
+        // Solicita o número inicial ao usuário
+        System.out.print("Digite o número inicial: ");
+        numeroInicial = entradaDados.nextInt();
+        entradaDados.nextLine(); // limpa o buffer do teclado
+
+        // Loop principal que continuará até que um número não seja múltiplo
+        while (saida) {
+
+            // Solicita um novo número para testar
+            System.out.printf("Digite outro número para testar se é múltiplo de %s:%n", numeroInicial);
+            numeroTeste = entradaDados.nextInt();
+            entradaDados.nextLine(); // limpa o buffer
+
+            // Ignora números menores que o número inicial
+            if (numeroTeste < numeroInicial) {
+                continue; // volta ao início do loop sem testar nada
+            }
+
+            // Verifica se o número é múltiplo do número inicial
+            if (numeroTeste % numeroInicial == 0) {
+                System.out.printf("O número %s é múltiplo de %s.%n", numeroTeste, numeroInicial);
+            } else {
+                // Se não for múltiplo, encerra o loop
+                System.out.printf("O número %s NÃO é múltiplo de %s. Encerrando o programa.%n",
+                        numeroTeste, numeroInicial);
+                saida = false;
+            }
+
+            System.out.println(); // linha em branco para organização visual
+        }
+
+        // Fecha o Scanner
+        entradaDados.close();
+    }
+}
 
 ```
 
