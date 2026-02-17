@@ -10,9 +10,35 @@ Cada código está documentado com Javadoc e comentários explicativos.
 
 # 1 — Conta Bancaria
 
+Este projeto implementa o controle das funcionalidades básicas de uma conta Bancario, seguindo todas as regras e operações definidas no enunciado abaixo.
+
+## Descrição do Problema
+
+Escreva um código onde temos uma conta bancaria que possa realizar as seguintes operações:
+- Consultar saldo
+- Consultar cheque especial
+- Depositar dinheiro;
+- Sacar dinheiro;
+- Pagar um boleto.
+- Verificar se a conta está usando cheque especial.
+
+Siga as seguintes regras para implementar
+	- A conta bancária deve ter um limite de cheque especial somado ao saldo da conta;
+	- O o valor do cheque especial é definido no momento da criação da conta, de acordo com o valor depositado na conta em sua criação;
+	- Se o valor depositado na criação da conta for de R$500,00 ou menos o cheque especial deve ser de R$50,00
+	- Para valores acima de R$500,00 o cheque especial deve ser de 50% do valor depositado;
+	- Caso o limite de cheque especial seja usado, assim que possível a conta deve cobrar uma taxa de 20% do valor usado do cheque especial.
+
+---
+🧩 Classes do Projeto
+A seguir estão as classes que compõem o sistema de controle do carro.
+Elas estão organizadas na ordem ideal de leitura:
+
+---
 ```java
 
 ```
+
 ---
 # 2 — Controla Carro
 Este projeto implementa o controle das funcionalidades básicas de um carro, seguindo todas as regras e operações definidas no enunciado abaixo.
