@@ -30,15 +30,334 @@ Siga as seguintes regras para implementar
 -	- Caso o limite de cheque especial seja usado, assim que possível a conta deve cobrar uma taxa de 20% do valor usado do cheque especial.
 	
 ---
-🧩 Classes do Projeto
-A seguir estão as classes que compõem o sistema de controle do carro.
+🧩 Classes do Projeto 
+A seguir estão as classes que compõem o sistema de conta bancária.
 Elas estão organizadas na ordem ideal de leitura:
 
+Classe ContaBancaria — contém toda a lógica e regras de negócio.
+
+Classe Main — fornece o menu interativo para operar a conta.
 ---
+🏦 Classe ContaBancaria
 ```java
+package Banco;
+/**
+ * Representa uma conta bancária capaz de realizar operações básicas como
+ * depósito, saque, pagamento de boleto e controle de cheque especial.
+ *
+ * <p>A conta possui um limite de cheque especial definido no momento da criação,
+ * de acordo com o valor depositado inicialmente. Caso o cliente utilize o cheque
+ * especial, uma taxa de 20% sobre o valor utilizado será cobrada assim que houver
+ * saldo suficiente para quitá-la integralmente.</p>
+ */
+public class ContaBancaria {
 
+    /** Saldo atual da conta (pode ser negativo ao usar cheque especial). */
+    private double saldo;
+
+    /** Limite total disponível de cheque especial. */
+    private double limiteChequeEspecial;
+
+    /** Valor atualmente utilizado do cheque especial. */
+    private double valorUsadoChequeEspecial;
+
+    /**
+     * Constrói uma nova conta bancária com um depósito inicial.
+     *
+     * <p>Regras para definição do cheque especial:</p>
+     * <ul>
+     *     <li>Depósitos até R$ 500,00 → cheque especial de R$ 50,00</li>
+     *     <li>Depósitos acima de R$ 500,00 → cheque especial de 50% do valor depositado</li>
+     * </ul>
+     *
+     * @param depositoInicial valor depositado na criação da conta
+     */
+    public ContaBancaria(double depositoInicial){
+        this.setSaldo(depositoInicial);
+
+        if (depositoInicial <= 500.00){
+            this.setLimiteChequeEspecial(50.00);
+        } else {
+            this.setLimiteChequeEspecial(depositoInicial / 2);
+        }
+
+        this.setValorUsadoChequeEspecial(0.0);
+    }
+
+    /**
+     * Consulta o saldo atual da conta.
+     *
+     * @return saldo atual
+     */
+    public double consultaSaldo() {
+        return saldo;
+    }
+
+    /**
+     * Atualiza o saldo da conta.
+     *
+     * @param saldo novo saldo
+     */
+    private void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
+    /**
+     * Consulta o limite total de cheque especial disponível.
+     *
+     * @return limite de cheque especial
+     */
+    public double consultaLimiteChequeEspecial() {
+        return limiteChequeEspecial;
+    }
+
+    /**
+     * Define o limite de cheque especial.
+     *
+     * @param limiteChequeEspecial novo limite
+     */
+    private void setLimiteChequeEspecial(double limiteChequeEspecial) {
+        this.limiteChequeEspecial = limiteChequeEspecial;
+    }
+
+    /**
+     * Consulta o valor atualmente utilizado do cheque especial.
+     *
+     * @return valor usado do cheque especial
+     */
+    public double consultaValorUsadoChequeEspecial() {
+        return valorUsadoChequeEspecial;
+    }
+
+    /**
+     * Atualiza o valor utilizado do cheque especial.
+     *
+     * @param valorUsadoChequeEspecial novo valor utilizado
+     */
+    private void setValorUsadoChequeEspecial(double valorUsadoChequeEspecial) {
+        this.valorUsadoChequeEspecial = valorUsadoChequeEspecial;
+    }
+
+    /**
+     * Realiza um depósito na conta.
+     *
+     * <p>Após o depósito, caso exista valor pendente de cheque especial,
+     * o sistema tentará cobrar a taxa de 20% sobre o valor utilizado.</p>
+     *
+     * @param deposito valor a ser depositado (deve ser maior que zero)
+     */
+    public void depositar(double deposito){
+        double novoSaldo = this.consultaSaldo() + deposito;
+
+        if (deposito <= 0){
+            System.out.println("Não é possível depositar valor negativo ou zero.");
+            return;
+        }
+
+        this.setSaldo(novoSaldo);
+        System.out.println("Depósito no valor de: R$ " + deposito);
+
+        this.cobrarTaxaChequeEspecial();
+    }
+
+    /**
+     * Realiza um saque na conta.
+     *
+     * <p>O saque pode utilizar o cheque especial caso o saldo não seja suficiente.
+     * Se o saldo ficar negativo após o saque, o valor utilizado do cheque especial
+     * será atualizado.</p>
+     *
+     * @param saque valor a ser sacado (deve ser maior que zero)
+     */
+    public void sacar(double saque){
+        double saldoDisponivel = this.consultaSaldo() + this.consultaLimiteChequeEspecial();
+        double saldoAnterior = this.consultaSaldo();
+
+        if (saque <= 0){
+            System.out.println("O saque deve ser maior que zero.");
+            return;
+        }
+
+        if (saque > saldoDisponivel){
+            System.out.println("Saque não permitido: excede o limite.");
+            return;
+        }
+
+        // Caso 1: saque normal
+        if (saque <= saldoAnterior){
+            this.setSaldo(saldoAnterior - saque);
+            System.out.println("Saque realizado no valor de: R$ " + saque);
+            return;
+        }
+
+        // Caso 2: saque usando cheque especial
+        this.setSaldo(saldoAnterior - saque);
+
+        if (this.consultaSaldo() < 0){
+            this.setValorUsadoChequeEspecial(Math.abs(this.consultaSaldo()));
+        }
+
+        System.out.println("Saque realizado no valor de: R$ " + saque);
+    }
+
+    /**
+     * Realiza o pagamento de um boleto.
+     *
+     * <p>O pagamento utiliza a mesma lógica do saque, podendo usar cheque especial.</p>
+     *
+     * @param valorBoleto valor do boleto (deve ser maior que zero)
+     */
+    public void pagarBoleto(double valorBoleto){
+        System.out.println("Pagamento de boleto:");
+        sacar(valorBoleto);
+    }
+
+    /**
+     * Cobra a taxa de 20% sobre o valor utilizado do cheque especial,
+     * caso haja saldo suficiente para pagar a taxa integralmente.
+     *  
+     * <p>A taxa só é cobrada quando:</p>
+     * <ul>
+     *     <li>há valor usado do cheque especial</li>
+     *     <li>o saldo atual é suficiente para pagar a taxa integral</li>
+     * </ul>
+     */
+    private void cobrarTaxaChequeEspecial() {
+        double valorUsado = this.consultaValorUsadoChequeEspecial();
+
+        if (valorUsado <= 0){
+            return;
+        }
+
+        double taxa = valorUsado * 0.20;
+
+        if (this.consultaSaldo() >= taxa){
+            this.setSaldo(this.consultaSaldo() - taxa);
+            this.setValorUsadoChequeEspecial(0);
+
+            System.out.println("Taxa de R$ " + taxa + " cobrada pelo uso do cheque especial.");
+        }
+    }
+}
 ```
+🖥️ Classe Main
+```java
+/**
+ * Escreva um código onde temos uma conta bancaria que possa realizar as seguintes operações:
+ * Consultar saldo
+ * Consultar cheque especial
+ * Depositar dinheiro;
+ * Sacar dinheiro;
 
+ * Pagar um boleto.
+ * Verificar se a conta está usando cheque especial.
+ * Siga as seguintes regras para implementar
+ *
+ * A conta bancária deve ter um limite de cheque especial somado ao saldo da conta;
+ * O o valor do cheque especial é definido no momento da criação da conta, de acordo com o valor depositado na conta em sua criação;
+ * Se o valor depositado na criação da conta for de R$500,00 ou menos o cheque especial deve ser de R$50,00
+ * Para valores acima de R$500,00 o cheque especial deve ser de 50% do valor depositado;
+ * Caso o limite de cheque especial seja usado, assim que possível a conta deve cobrar uma taxa de 20% do valor usado do cheque especial.
+ */
+package Banco;
+import java.util.Scanner;
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner entrada = new Scanner(System.in);
+
+        // Criação da conta bancária com depósito inicial
+        System.out.print("Informe o depósito inicial para criar a conta: R$ ");
+        double depositoInicial = entrada.nextDouble();
+        ContaBancaria conta = new ContaBancaria(depositoInicial);
+
+        int opcao;
+
+        // Loop principal do menu
+        do {
+            System.out.println("\n=========== MENU DA CONTA BANCÁRIA ===========");
+            System.out.println("1 - Consultar saldo");
+            System.out.println("2 - Consultar cheque especial");
+            System.out.println("3 - Depositar dinheiro");
+            System.out.println("4 - Sacar dinheiro");
+            System.out.println("5 - Pagar boleto");
+            System.out.println("0 - Sair");
+            System.out.println("===============================================");
+            System.out.print("Escolha uma opção: ");
+
+            opcao = entrada.nextInt();
+
+            switch (opcao) {
+                case 1:
+                    consultarSaldo(conta);
+                    break;
+
+                case 2:
+                    consultarChequeEspecial(conta);
+                    break;
+
+                case 3:
+                    depositarDinheiro(entrada, conta);
+                    break;
+
+                case 4:
+                    sacarDinheiro(entrada, conta);
+                    break;
+
+                case 5:
+                    pagarBoleto(entrada, conta);
+                    break;
+
+                case 0:
+                    encerrarApp();
+                    break;
+
+                default:
+                    System.out.println("Opção inválida.");
+            }
+
+        } while (opcao != 0);
+
+        entrada.close();
+    }
+
+    // ============================================
+    // MÉTODOS AUXILIARES DO MENU
+    // ============================================
+
+    private static void encerrarApp() {
+        System.out.println("Encerrando aplicação...");
+    }
+
+    private static void consultarSaldo(ContaBancaria conta) {
+        System.out.printf("Saldo atual: R$ %.2f%n", conta.consultaSaldo());
+    }
+
+    private static void consultarChequeEspecial(ContaBancaria conta) {
+        System.out.printf("Limite de cheque especial: R$ %.2f%n", conta.consultaLimiteChequeEspecial());
+        System.out.printf("Valor usado do cheque especial: R$ %.2f%n", conta.consultaValorUsadoChequeEspecial());
+    }
+
+    private static void depositarDinheiro(Scanner entrada, ContaBancaria conta) {
+        System.out.print("Informe o valor do depósito: R$ ");
+        double valor = entrada.nextDouble();
+        conta.depositar(valor);
+    }
+
+    private static void sacarDinheiro(Scanner entrada, ContaBancaria conta) {
+        System.out.print("Informe o valor do saque: R$ ");
+        double valor = entrada.nextDouble();
+        conta.sacar(valor);
+    }
+
+    private static void pagarBoleto(Scanner entrada, ContaBancaria conta) {
+        System.out.print("Informe o valor do boleto: R$ ");
+        double valor = entrada.nextDouble();
+        conta.pagarBoleto(valor);
+    }
+}
+```
 ---
 # 2 — Controla Carro
 Este projeto implementa o controle das funcionalidades básicas de um carro, seguindo todas as regras e operações definidas no enunciado abaixo.
